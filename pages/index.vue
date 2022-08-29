@@ -1,33 +1,30 @@
+// pages/index.vue
+
 <template>
   <section class="section">
-    <div class="columns is-mobile">
-      <card title="Free" icon="github">
-        Open source on <a href="https://github.com/buefy/buefy"> GitHub </a>
-      </card>
+    <div class="container">
+      <h1 class="title">Dashboard</h1>
 
-      <card title="Responsive" icon="cellphone-link">
-        <b class="has-text-grey"> Every </b> component is responsive
-      </card>
+      <p>Hi {{ user.name }}</p>
 
-      <card title="Modern" icon="alert-decagram">
-        Built with <a href="https://vuejs.org/"> Vue.js </a> and
-        <a href="http://bulma.io/"> Bulma </a>
-      </card>
-
-      <card title="Lightweight" icon="arrange-bring-to-front">
-        No other internal dependency
-      </card>
+      <a href="#" @click.prevent="logout">Logout</a>
     </div>
   </section>
 </template>
 
 <script>
-import Card from '~/components/Card'
-
 export default {
-  name: 'IndexPage',
-  components: {
-    Card,
+  data() {
+    return {
+      user: this.$auth.user.data,
+    }
+  },
+  methods: {
+    async logout() {
+      await this.$auth.logout()
+
+      this.$router.push('/login')
+    },
   },
 }
 </script>
